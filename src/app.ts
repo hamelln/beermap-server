@@ -9,20 +9,14 @@ import BreweryService from "./services/breweryService";
 passportConfig();
 
 const app = express();
-const port = 3008;
+const port = 8080;
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at ${port}`);
 });
 
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-app.use(
-  cors({
-    origin: "http://localhost:3008",
-    credentials: true,
-  })
-);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
