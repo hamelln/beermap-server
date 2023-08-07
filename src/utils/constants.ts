@@ -10,3 +10,5 @@ export const firebaseConfig = {
   measurementId: process.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
   databaseURL: process.env.PUBLIC_FIREBASE_REALTIME_DATABASE_URL,
 };
+
+export const PORT = process.env.SERVER_PORT;

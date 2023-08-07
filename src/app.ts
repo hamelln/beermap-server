@@ -3,12 +3,12 @@ import path from "path";
 import cors from "cors";
 import breweriesRouter from "./routes/breweriesRouter";
 import BreweryService from "./services/breweryService";
+import { PORT } from "./utils/constants";
 
 const app = express();
-const port = 3000;
 
-app.listen(port, () => {
-  console.log(`Server is running at ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running at ${PORT}`);
 });
 
 app.use("/static", express.static(path.join(__dirname, "public")));
