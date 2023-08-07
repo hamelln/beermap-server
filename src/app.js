@@ -1,10 +1,9 @@
-import express from "express";
-import path from "path";
-import breweriesRouter from "./routes/breweriesRouter";
-import BreweryService from "./services/breweryService";
-
-const cors = require("cors");
-const app = express();
+var express = require("express");
+var path = require("path");
+var cors = require("cors");
+var breweriesRouter = require("./routes/breweriesRouter");
+var BreweryService = require("./services/breweryService");
+var app = express();
 
 app.use("/static", express.static(path.join(__dirname, "public")));
 
@@ -17,4 +16,4 @@ app.use("/breweries", breweriesRouter);
   new BreweryService();
 })();
 
-export default app;
+module.exports = app;

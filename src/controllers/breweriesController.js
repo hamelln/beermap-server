@@ -1,4 +1,4 @@
-import BreweryService from "../services/breweryService";
+var BreweryService = require("../services/breweryService");
 
 const breweryService = BreweryService.getInstance();
 
@@ -23,4 +23,4 @@ const breweriesController = (req, res) => {
   }
 };
 
-export default breweriesController;
+module.exports = breweriesController;

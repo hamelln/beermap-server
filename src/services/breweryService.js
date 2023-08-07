@@ -1,8 +1,8 @@
-import StartFirebase from "../../firebase";
-import summarizeOfficeHours from "../utils/summarizeOfficeHours";
-import Presenter from "./presenter";
+var StartFirebase = require("../../firebase");
+var summarizeOfficeHours = require("../utils/summarizeOfficeHours");
+var Presenter = require("./presenter");
 
-export default class BreweryService {
+class BreweryService {
   allBreweries = {};
   breweryList = [];
   breweryObject = {};
@@ -86,3 +86,5 @@ export default class BreweryService {
 
   getSummarizedOfficeHour() {}
 }
+
+module.exports = BreweryService;

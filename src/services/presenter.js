@@ -1,4 +1,4 @@
-import { get, ref } from "firebase/database";
+var { get, ref } = require("firebase/database");
 
 class Presenter {
   database;
@@ -15,4 +15,4 @@ class Presenter {
   }
 }
 
-export default Presenter;
+module.exports = Presenter;

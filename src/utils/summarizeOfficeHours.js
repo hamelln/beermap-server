@@ -1,4 +1,4 @@
-import organizeDays from "./organizeDays";
+var organizeDays = require("./organizeDays");
 
 function getHoursStringForDay(day) {
   const { openTime, closeTime, breakTime } = day;
@@ -59,4 +59,4 @@ const summarizeOfficeHours = (officeHours) => {
   return result;
 };
 
-export default summarizeOfficeHours;
+module.exports = summarizeOfficeHours;

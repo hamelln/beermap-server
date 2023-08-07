@@ -1,4 +1,4 @@
-import app from "./app";
+var app = require("./app.js");
 
 var port = normalizePort(process.env.PORT || "3008");
 

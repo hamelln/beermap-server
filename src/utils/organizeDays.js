@@ -1,4 +1,4 @@
-export default function organizeDays(dayString) {
+function organizeDays(dayString) {
   if (dayString.length === 1) return dayString;
   if (dayString.length === 2) {
     if (dayString === "월일") return "일, 월";
@@ -67,3 +67,5 @@ export default function organizeDays(dayString) {
       return "";
   }
 }
+
+module.exports = organizeDays;

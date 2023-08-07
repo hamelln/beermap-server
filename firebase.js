@@ -1,10 +1,10 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { firebaseConfig } from "./src/utils/constants";
+const firebase = require("firebase/app");
+var { getDatabase } = require("firebase/database");
+const { firebaseConfig } = require("./src/utils/constants");
 
 const StartFirebase = () => {
-  const app = initializeApp(firebaseConfig);
+  const app = firebase.initializeApp(firebaseConfig);
   return getDatabase(app);
 };
 
-export default StartFirebase;
+module.exports = StartFirebase;

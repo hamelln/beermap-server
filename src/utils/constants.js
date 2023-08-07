@@ -1,6 +1,6 @@
-import "dotenv/config";
+require("dotenv/config");
 
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: process.env.PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.PUBLIC_FIREBASE_PROJECT_ID,
@@ -11,4 +11,9 @@ export const firebaseConfig = {
   databaseURL: process.env.PUBLIC_FIREBASE_REALTIME_DATABASE_URL,
 };
 
-export const PORT = process.env.SERVER_PORT;
+const PORT = process.env.SERVER_PORT;
+
+module.exports = {
+  firebaseConfig,
+  PORT,
+};
