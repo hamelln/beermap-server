@@ -1,5 +1,4 @@
 {
-  "main": "app.ts",
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc -p tsconfig.json"
