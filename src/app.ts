@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
-import cors from "cors";
 import breweriesRouter from "./routes/breweriesRouter";
 import BreweryService from "./services/breweryService";
 
+const cors = require("cors");
 const app = express();
 
 app.use("/static", express.static(path.join(__dirname, "public")));
