@@ -1,5 +1,5 @@
 import StartFirebase from "../../firebase";
-import Brewery from "../models/brewery";
+import Brewery from "../models/Brewery";
 import summarizeOfficeHours from "../utils/summarizeOfficeHours";
 import Presenter from "./presenter";
 
@@ -103,31 +103,3 @@ export default class BreweryService {
 
   getSummarizedOfficeHour() {}
 }
-
-// export async function updateBreweriesData(): Promise<void> {
-//   const lastUpdateTimestamp = getLastUpdateTimestamp(); // 마지막 업데이트 시간 구하기, 이 함수는 별도로 구현해야 함.
-
-//   const updatedBreweries: Brewery[] = await getUpdatedBreweries(
-//     lastUpdateTimestamp
-//   );
-
-//   // 변경된 데이터를 메모리에 있는 데이터와 합치기
-//   for (const updatedBrewery of updatedBreweries) {
-//     const index = allBreweries.findIndex(
-//       (brewery) => brewery.id === updatedBrewery.id
-//     );
-
-//     if (index >= 0) {
-//       allBreweries[index] = updatedBrewery; // 기존 브루어리 정보 업데이트
-//     } else {
-//       allBreweries.push(updatedBrewery); // 새로운 브루어리 정보 추가
-//     }
-//   }
-
-//   // 마지막 업데이트 시간 갱신
-//   setLastUpdateTimestamp();
-// }
-
-// const getLastUpdateTimestamp = () => {};
-// const setLastUpdateTimestamp = () => {};
-// const getUpdatedBreweries = (lastUpdateTimestamp) => [];

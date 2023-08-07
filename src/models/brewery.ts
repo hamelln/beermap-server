@@ -1,6 +1,6 @@
 import { User } from "./User";
 import OfficeHours from "./OfficeHours";
-import Beer from "./beer";
+import Beer from "./Beer";
 
 export default interface Brewery {
   id: string;

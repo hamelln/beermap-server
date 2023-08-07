@@ -1,4 +1,4 @@
-import Brewery from "./brewery";
+import Brewery from "./Brewery";
 
 export interface User {
   userName: string;
