@@ -6,7 +6,7 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${3008}`);
 });
 
-function normalizePort(val: string | number | any) {
+function normalizePort(val) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {

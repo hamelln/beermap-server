@@ -1,9 +1,8 @@
-import { Request, Response } from "express";
 import BreweryService from "../services/breweryService";
 
 const breweryService = BreweryService.getInstance();
 
-const breweriesController = (req: Request, res: Response) => {
+const breweriesController = (req, res) => {
   const query = String(req.query.q ?? "");
 
   if (!("filterOption" in req.body)) {

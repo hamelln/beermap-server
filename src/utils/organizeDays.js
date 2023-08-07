@@ -1,4 +1,4 @@
-export default function organizeDays(dayString: string): string {
+export default function organizeDays(dayString) {
   if (dayString.length === 1) return dayString;
   if (dayString.length === 2) {
     if (dayString === "월일") return "일, 월";

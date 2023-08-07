@@ -1,9 +1,8 @@
-import { Request, Response } from "express";
 import BreweryService from "../services/breweryService";
 
 const breweryService = BreweryService.getInstance();
 
-const breweryController = (req: Request, res: Response) => {
+const breweryController = (req, res) => {
   const id = req.params.id;
   const brewery = breweryService.getBreweryById(id);
 

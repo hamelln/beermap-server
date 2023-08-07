@@ -1,23 +1,14 @@
 import StartFirebase from "../../firebase";
-import Brewery from "../models/Brewery";
 import summarizeOfficeHours from "../utils/summarizeOfficeHours";
 import Presenter from "./presenter";
 
-interface BreweryJson {
-  [K: string]: Brewery[];
-}
-
-interface BreweryDetailsProps extends Brewery {
-  summarizedOfficeHours: string[][];
-}
-
 export default class BreweryService {
-  private allBreweries: BreweryJson = {};
-  private breweryList: Brewery[] = [];
-  private breweryObject: { [K: string]: Brewery } = {};
-  private static instance: BreweryService;
+  allBreweries = {};
+  breweryList = [];
+  breweryObject = {};
+  static instance;
 
-  public static getInstance(): BreweryService {
+  static getInstance() {
     if (!this.instance) {
       this.instance = new BreweryService();
       this.instance.loadAllBreweries();
@@ -26,25 +17,20 @@ export default class BreweryService {
     return this.instance;
   }
 
-  #createBreweryList(breweriesInCities: BreweryJson): void {
+  #createBreweryList(breweriesInCities) {
     for (const key in breweriesInCities) {
       const l = breweriesInCities[key];
       this.breweryList.push(...l);
     }
   }
 
-  #createBreweryObject(breweryList: Brewery[]): void {
-    breweryList.map((brewery: Brewery) => {
+  #createBreweryObject(breweryList) {
+    breweryList.map((brewery) => {
       this.breweryObject[brewery.id] = brewery;
     });
   }
 
-  #isQueryInBreweryAddress(
-    query: string,
-    breweryName: string,
-    city: string,
-    stateProvince: string
-  ): boolean {
+  #isQueryInBreweryAddress(query, breweryName, city, stateProvince) {
     return (
       breweryName.includes(query) ||
       stateProvince.includes(query) ||
@@ -52,7 +38,7 @@ export default class BreweryService {
     );
   }
 
-  async loadAllBreweries(): Promise<void> {
+  async loadAllBreweries() {
     const database = StartFirebase();
     const presenter = new Presenter(database);
     this.allBreweries = await presenter.fetchAllBreweries();
@@ -60,24 +46,24 @@ export default class BreweryService {
     this.#createBreweryObject(this.breweryList);
   }
 
-  getBreweryById(id: string): BreweryDetailsProps {
+  getBreweryById(id) {
     const brewery = this.breweryObject[id];
     const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);
     const newBrewery = { ...brewery, summarizedOfficeHours };
     return newBrewery;
   }
 
-  getBreweriesByQuery(query: string): Brewery[] {
+  getBreweriesByQuery(query) {
     const breweries = this.breweryList.filter(
-      ({ breweryName, city, stateProvince }: Brewery) =>
+      ({ breweryName, city, stateProvince }) =>
         this.#isQueryInBreweryAddress(query, breweryName, city, stateProvince)
     );
     return breweries;
   }
 
-  getBreweriesByQueryOnFilter(query: string, filterOption: string): Brewery[] {
+  getBreweriesByQueryOnFilter(query, filterOption) {
     const breweries = this.breweryList.filter(
-      ({ breweryName, city, stateProvince, breweryType }: Brewery) =>
+      ({ breweryName, city, stateProvince, breweryType }) =>
         this.#isQueryInBreweryAddress(
           query,
           breweryName,
@@ -88,15 +74,12 @@ export default class BreweryService {
     return breweries;
   }
 
-  getBreweriesByProvince(city: string): Brewery[] {
+  getBreweriesByProvince(city) {
     return this.allBreweries[city];
   }
 
-  filterBreweriesByOption(
-    breweries: Brewery[],
-    filterOption: string
-  ): Brewery[] {
-    return breweries.filter(({ breweryType }: Brewery) => {
+  filterBreweriesByOption(breweries, filterOption) {
+    return breweries.filter(({ breweryType }) => {
       breweryType === filterOption;
     });
   }
