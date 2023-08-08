@@ -1,5 +1,6 @@
 var StartFirebase = require("../../firebase");
 var Presenter = require("./presenter");
+var summarizeOfficeHours = require("../utils/summarizeOfficeHours");
 
 class BreweryService {
   allBreweries = {};
@@ -46,7 +47,13 @@ class BreweryService {
   }
 
   getBreweryById(id) {
-    return this.breweryObject[id];
+    const brewery = this.breweryObject[id];
+    const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);
+    const breweryAddedSummarizeOfficeHours = {
+      ...brewery,
+      summarizedOfficeHours,
+    };
+    return breweryAddedSummarizeOfficeHours;
   }
 
   getBreweriesByQuery(query) {
@@ -79,8 +86,6 @@ class BreweryService {
       breweryType === filterOption;
     });
   }
-
-  getSummarizedOfficeHour() {}
 }
 
 module.exports = BreweryService;
