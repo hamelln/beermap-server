@@ -1,5 +1,4 @@
 var StartFirebase = require("../../firebase");
-var summarizeOfficeHours = require("../utils/summarizeOfficeHours");
 var Presenter = require("./presenter");
 
 class BreweryService {
@@ -47,10 +46,7 @@ class BreweryService {
   }
 
   getBreweryById(id) {
-    const brewery = this.breweryObject[id];
-    const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);
-    const newBrewery = { ...brewery, summarizedOfficeHours };
-    return newBrewery;
+    return this.breweryObject[id];
   }
 
   getBreweriesByQuery(query) {
