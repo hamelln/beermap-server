@@ -14,12 +14,16 @@ const breweriesController = (req, res) => {
       req.body.filterOption
     );
     res.json(breweries);
-  } else {
+  } else if (query !== "") {
     const breweries = breweryService.getBreweriesByQueryOnFilter(
       query,
       req.body.filterOption
     );
     res.json(breweries);
+  } else if (query === "") {
+    const breweries = breweryService.getAllBreweries();
+    res.json(breweries);
+  } else {
   }
 };
 

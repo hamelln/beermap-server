@@ -46,6 +46,10 @@ class BreweryService {
     this.#createBreweryObject(this.breweryList);
   }
 
+  getAllBreweries() {
+    return this.breweryList;
+  }
+
   getBreweryById(id) {
     const brewery = this.breweryObject[id];
     const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);

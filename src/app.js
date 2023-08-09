@@ -10,7 +10,7 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/breweries", breweriesRouter);
+app.use("/", breweriesRouter);
 
 (async () => {
   new BreweryService();
