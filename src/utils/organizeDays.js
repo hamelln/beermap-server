@@ -2,7 +2,7 @@ function organizeDays(days) {
   if (days.length === 1) return days;
   if (days.length === 2) {
     if (days === "월일") return "일, 월";
-    return `${(days[0], days[1])}`;
+    return `${days[0]}, ${days[1]}`;
   }
   if (days.length === 7) return "매일";
 
