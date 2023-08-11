@@ -8,7 +8,7 @@ function organizeDays(days) {
 
   const allDay = "월화수목금토일월화수목금토";
   const areContinueDays = (days) => allDay.includes(days);
-  const convertString = (days) => `${days[0]} ~ ${days[days.length - 1]}`;
+  const convertString = (days) => `${days[0]} - ${days[days.length - 1]}`;
 
   if (areContinueDays(days)) return convertString(days);
 
