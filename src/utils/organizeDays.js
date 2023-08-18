@@ -2,13 +2,13 @@ function organizeDays(days) {
   if (days.length === 1) return days;
   if (days.length === 2) {
     if (days === "월일") return "일, 월";
-    return `${(days[0], days[1])}`;
+    return `${days[0]}, ${days[1]}`;
   }
   if (days.length === 7) return "매일";
 
   const allDay = "월화수목금토일월화수목금토";
   const areContinueDays = (days) => allDay.includes(days);
-  const convertString = (days) => `${days[0]} ~ ${days[days.length - 1]}`;
+  const convertString = (days) => `${days[0]} - ${days[days.length - 1]}`;
 
   if (areContinueDays(days)) return convertString(days);
 
