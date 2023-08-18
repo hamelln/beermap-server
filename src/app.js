@@ -1,6 +1,7 @@
 var express = require("express");
 var path = require("path");
 var cors = require("cors");
+var bodyParser = require("body-parser");
 var breweriesRouter = require("./routes/breweriesRouter");
 var BreweryService = require("./services/breweryService");
 var app = express();
@@ -8,6 +9,7 @@ var app = express();
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", breweriesRouter);

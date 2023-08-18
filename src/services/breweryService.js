@@ -1,11 +1,12 @@
 var StartFirebase = require("../../firebase");
+var { v1: uuidv1 } = require("uuid");
 var Presenter = require("./presenter");
 var summarizeOfficeHours = require("../utils/summarizeOfficeHours");
 
 class BreweryService {
-  allBreweries = {};
+  allBreweries;
   breweryList = [];
-  breweryObject = {};
+  #presenter = new Presenter(StartFirebase());
   static instance;
 
   static getInstance() {
@@ -13,21 +14,14 @@ class BreweryService {
       this.instance = new BreweryService();
       this.instance.loadAllBreweries();
     }
-
     return this.instance;
   }
 
-  #createBreweryList(breweriesInCities) {
-    for (const key in breweriesInCities) {
-      const l = breweriesInCities[key];
-      this.breweryList.push(...l);
+  #createBreweryList(allBreweries) {
+    for (const key in allBreweries) {
+      const brewery = allBreweries[key];
+      this.breweryList.push(brewery);
     }
-  }
-
-  #createBreweryObject(breweryList) {
-    breweryList.map((brewery) => {
-      this.breweryObject[brewery.id] = brewery;
-    });
   }
 
   #isQueryInBreweryAddress(query, breweryName, city, stateProvince) {
@@ -39,19 +33,20 @@ class BreweryService {
   }
 
   async loadAllBreweries() {
-    const database = StartFirebase();
-    const presenter = new Presenter(database);
-    this.allBreweries = await presenter.fetchAllBreweries();
+    this.allBreweries = await this.#presenter.fetchAllBreweries();
     this.#createBreweryList(this.allBreweries);
-    this.#createBreweryObject(this.breweryList);
   }
 
   getAllBreweries() {
     return this.breweryList;
   }
 
-  getBreweryById(id) {
-    const brewery = this.breweryObject[id];
+  getBreweryById(breweryId) {
+    return this.allBreweries[breweryId];
+  }
+
+  async getSummarizedBreweryById(breweryId) {
+    const brewery = this.allBreweries[breweryId];
     const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);
     const breweryAddedSummarizeOfficeHours = {
       ...brewery,
@@ -68,27 +63,24 @@ class BreweryService {
     return breweries;
   }
 
-  getBreweriesByQueryOnFilter(query, filterOption) {
-    const breweries = this.breweryList.filter(
-      ({ breweryName, city, stateProvince, breweryType }) =>
-        this.#isQueryInBreweryAddress(
-          query,
-          breweryName,
-          city,
-          stateProvince
-        ) && breweryType === filterOption
-    );
-    return breweries;
+  async createBrewery(newBrewery) {
+    let breweryId = uuidv1();
+    while (breweryId in this.allBreweries) {
+      breweryId = uuidv1();
+    }
+    const newBreweryAddedId = { id: breweryId };
+    for (const k in newBrewery) {
+      newBreweryAddedId[k] = newBrewery[k];
+    }
+    await this.#presenter.createBrewery(newBreweryAddedId);
   }
 
-  getBreweriesByProvince(city) {
-    return this.allBreweries[city];
+  async updateBrewery(updatedBrewery) {
+    await this.#presenter.updateBrewery(updatedBrewery);
   }
 
-  filterBreweriesByOption(breweries, filterOption) {
-    return breweries.filter(({ breweryType }) => {
-      breweryType === filterOption;
-    });
+  async deleteBrewery(breweryId) {
+    await this.#presenter.deleteBrewery(breweryId);
   }
 }
 
