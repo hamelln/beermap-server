@@ -45,7 +45,7 @@ class BreweryService {
     return this.allBreweries[breweryId];
   }
 
-  async getSummarizedBreweryById(breweryId) {
+  getSummarizedBreweryById(breweryId) {
     const brewery = this.allBreweries[breweryId];
     const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);
     const breweryAddedSummarizeOfficeHours = {
