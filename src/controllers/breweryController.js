@@ -7,7 +7,7 @@ const breweryController = async (req, res) => {
   const breweryId = req.params.id;
   switch (method) {
     case "GET":
-      const brewery = await breweryService.getBreweryById(breweryId);
+      const brewery = await breweryService.getSummarizedBreweryById(breweryId);
       if (brewery) {
         res.json(brewery);
       } else {
