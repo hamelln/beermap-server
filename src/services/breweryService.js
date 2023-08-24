@@ -76,7 +76,7 @@ class BreweryService {
   }
 
   async updateBrewery(updatedBrewery) {
-    await this.#presenter.updateBrewery(updatedBrewery);
+    return await this.#presenter.updateBrewery(updatedBrewery);
   }
 
   async deleteBrewery(breweryId) {
