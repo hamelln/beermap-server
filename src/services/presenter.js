@@ -29,6 +29,8 @@ class Presenter {
   async updateBrewery(updatedBrewery) {
     const breweryRef = ref(this.database, `breweries/${updatedBrewery.id}`);
     await update(breweryRef, updatedBrewery);
+    const result = await this.readBrewery(updatedBrewery.id);
+    return result;
   }
 
   async deleteBrewery(breweryId) {

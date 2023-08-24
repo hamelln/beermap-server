@@ -7,7 +7,7 @@ const breweryController = async (req, res) => {
   const breweryId = req.params.id;
   switch (method) {
     case "GET":
-      const brewery = breweryService.getSummarizedBreweryById(breweryId);
+      const brewery = await breweryService.getBreweryById(breweryId);
       if (brewery) {
         res.json(brewery);
       } else {
@@ -20,8 +20,12 @@ const breweryController = async (req, res) => {
       break;
     case "PATCH":
       const updatedBrewery = req.body;
-      breweryService.updateBrewery(updatedBrewery);
-      res.json(updatedBrewery);
+      const result = await breweryService.updateBrewery(updatedBrewery);
+      if (result) {
+        res.json(result);
+      } else {
+        res.status(404).json({ error: "뭔가 잘못됐습니다" });
+      }
       break;
     case "DELETE":
       await breweryService.deleteBrewery(breweryId);
