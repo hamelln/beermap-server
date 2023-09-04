@@ -2,6 +2,7 @@ var StartFirebase = require("../../firebase");
 var { v1: uuidv1 } = require("uuid");
 var Presenter = require("./presenter");
 var summarizeOfficeHours = require("../utils/summarizeOfficeHours");
+var ImageUploader = require("./image-uploader");
 
 class BreweryService {
   allBreweries;
@@ -45,8 +46,8 @@ class BreweryService {
     return this.allBreweries[breweryId];
   }
 
-  getSummarizedBreweryById(breweryId) {
-    const brewery = this.allBreweries[breweryId];
+  async getSummarizedBreweryById(breweryId) {
+    const brewery = await this.#presenter.readBrewery(breweryId);
     const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);
     const breweryAddedSummarizeOfficeHours = {
       ...brewery,
@@ -76,7 +77,21 @@ class BreweryService {
   }
 
   async updateBrewery(updatedBrewery) {
+    const breweryId = updatedBrewery.id;
+    const images = getBreweryById(breweryId).images;
+    const newImages = updatedBrewery.images;
+    this.checkAndDeleteImages(images, newImages);
     return await this.#presenter.updateBrewery(updatedBrewery);
+  }
+
+  async checkAndDeleteImages(images, newImages) {
+    const imagesToDelete = images.filter((image) => {
+      const index = newImages.findIndex((newImage) => image.id === newImage.id);
+      return index === -1;
+    });
+    imagesToDelete.map((image) => {
+      ImageUploader.delete(image.id);
+    });
   }
 
   async deleteBrewery(breweryId) {
