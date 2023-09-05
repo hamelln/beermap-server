@@ -19,4 +19,4 @@ class ImageUploader {
   }
 }
 
-export default ImageUploader;
+module.exports = ImageUploader;
