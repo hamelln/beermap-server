@@ -80,8 +80,12 @@ class BreweryService {
     const breweryId = updatedBrewery.id;
     const images = getBreweryById(breweryId).images;
     const newImages = updatedBrewery.images;
-    this.checkAndDeleteImages(images, newImages);
-    return await this.#presenter.updateBrewery(updatedBrewery);
+    const updatedImages = await this.checkAndDeleteImages(images, newImages);
+    const updatedBreweryWithImages = {
+      ...updatedBrewery,
+      images: updatedImages,
+    };
+    return await this.#presenter.updateBrewery(updatedBreweryWithImages);
   }
 
   async checkAndDeleteImages(images, newImages) {
@@ -92,6 +96,12 @@ class BreweryService {
     imagesToDelete.map((image) => {
       ImageUploader.delete(image.id);
     });
+    const updatedImages = newImages.filter((image) => {
+      return imagesToDelete.every(
+        (deletedImage) => deletedImage.id !== image.id
+      );
+    });
+    return updatedImages;
   }
 
   async deleteBrewery(breweryId) {
