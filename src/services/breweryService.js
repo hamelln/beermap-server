@@ -78,7 +78,7 @@ class BreweryService {
 
   async updateBrewery(updatedBrewery) {
     const breweryId = updatedBrewery.id;
-    const images = getBreweryById(breweryId).images;
+    const images = this.getBreweryById(breweryId).images;
     const newImages = updatedBrewery.images;
     const updatedImages = await this.checkAndDeleteImages(images, newImages);
     const updatedBreweryWithImages = {
