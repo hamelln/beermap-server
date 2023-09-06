@@ -42,12 +42,12 @@ class BreweryService {
     return this.breweryList;
   }
 
-  getBreweryById(breweryId) {
-    return this.allBreweries[breweryId];
+  async getBreweryById(breweryId) {
+    return await this.#presenter.readBrewery(breweryId);
   }
 
   async getSummarizedBreweryById(breweryId) {
-    const brewery = await this.#presenter.readBrewery(breweryId);
+    const brewery = await this.getBreweryById(breweryId);
     const summarizedOfficeHours = summarizeOfficeHours(brewery.officeHours);
     const breweryAddedSummarizeOfficeHours = {
       ...brewery,
@@ -89,6 +89,7 @@ class BreweryService {
   }
 
   async checkAndDeleteImages(images, newImages) {
+    if (!images) return newImages;
     const imagesToDelete = images.filter((image) => {
       const index = newImages.findIndex((newImage) => image.id === newImage.id);
       return index === -1;
