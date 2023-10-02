@@ -29,7 +29,8 @@ class BreweryService {
     return (
       breweryName.includes(query) ||
       stateProvince.includes(query) ||
-      city.includes(query)
+      city.includes(query) ||
+      query.toLowerCase() === breweryName.toLowerCase()
     );
   }
 
