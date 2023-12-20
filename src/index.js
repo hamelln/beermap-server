@@ -1,9 +1,9 @@
 var app = require("./app.js");
 
-var port = normalizePort(process.env.PORT || "3008");
+var port = normalizePort(3000);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${3008}`);
+  console.log(`Example app listening at http://localhost:${port}`);
 });
 
 function normalizePort(val) {
